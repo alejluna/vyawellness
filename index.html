@@ -23,13 +23,15 @@
   .wrap{max-width:1080px; margin:0 auto; padding:0 26px;}
 
   header{position:sticky; top:0; z-index:50; background:rgba(234,234,241,.94); backdrop-filter:blur(6px); border-bottom:2px solid var(--ink); padding-top:env(safe-area-inset-top,0px);}
-  nav.wrap{display:flex; align-items:center; justify-content:space-between; padding:15px 26px;}
+  nav.wrap{display:flex; align-items:center; justify-content:space-between; padding:15px 26px; gap:8px;}
   .brand{font-family:'Nunito'; font-weight:800; font-size:20px; display:flex; align-items:center; gap:8px;}
   .brand svg{width:30px; height:30px; flex-shrink:0;}
-  .navlinks{display:flex; gap:22px;}
+  .navlinks{display:flex; gap:22px; flex:1; margin-left:14px;}
   .navlinks button{font-family:'Nunito'; font-weight:700; font-size:14.5px; background:none; border:0; cursor:pointer; color:var(--ink); opacity:.55;}
   .navlinks button.active{opacity:1; color:var(--peach-d);}
-  .join-btn{background:var(--peach); color:#fff; padding:10px 20px; border-radius:100px; font-weight:700; font-size:14px; box-shadow:0 3px 0 var(--peach-d); white-space:nowrap;}
+  .join-btn{background:var(--peach); color:#fff; padding:8px 16px; border-radius:10px; font-weight:700; font-size:13.5px; box-shadow:0 2px 0 var(--peach-d); white-space:nowrap;}
+  .avatar-btn{width:34px; height:34px; border-radius:50%; border:2px solid var(--ink); background:var(--paper); display:flex; align-items:center; justify-content:center; cursor:pointer; padding:0; flex-shrink:0; margin-left:4px;}
+  .avatar-btn svg{width:18px; height:18px;}
   .hamburger{display:none; background:none; border:2px solid var(--ink); border-radius:10px; width:38px; height:38px; cursor:pointer; flex-shrink:0;}
   .hamburger span{display:block; width:18px; height:2px; background:var(--ink); margin:4px auto;}
   @media(max-width:680px){
@@ -48,7 +50,7 @@
 
   section{display:none;} section.active{display:block;}
 
-  .hero{padding:60px 0 50px; position:relative; overflow:hidden;}
+  .hero{padding:60px 0 50px; position:relative; overflow:hidden; background:linear-gradient(135deg, #DCE7F5 0%, var(--cream) 45%, #FBF0D2 100%);}
   .hero .wrap{display:grid; grid-template-columns:1.1fr .9fr; gap:40px; align-items:center;}
   @media(max-width:800px){ .hero .wrap{grid-template-columns:1fr;} }
   .badge{display:inline-flex; align-items:center; gap:6px; background:var(--yellow); padding:6px 14px; border-radius:100px; font-weight:700; font-size:13.5px; margin-bottom:16px;}
@@ -75,13 +77,47 @@
   .sec-head p{max-width:36ch; opacity:.75; font-weight:600; font-size:14.5px;}
 
   .week-list{display:flex; flex-direction:column; gap:10px;}
+  .week-section{padding-left:18px; padding-right:18px;}
+  @media(min-width:640px){ .week-section{padding-left:48px; padding-right:48px;} }
   .week-row{display:grid; grid-template-columns:44px 1fr auto; gap:16px; align-items:center; background:var(--paper); border:2px solid var(--ink); border-radius:16px; padding:14px 18px;}
   .week-row .num{font-family:'Kaushan Script',cursive; font-size:18px; color:#fff; background:var(--teal); width:34px; height:34px; border-radius:50%; display:flex; align-items:center; justify-content:center;}
   .week-row .t{font-weight:800; font-size:15.5px;}
   .week-row .d{font-size:13.5px; opacity:.65; margin-top:2px;}
-  .week-row .tag{font-size:12px; font-weight:800; background:var(--yellow); padding:5px 11px; border-radius:100px; white-space:nowrap;}
+  .week-row .tag{display:flex; align-items:center; gap:6px; font-size:12px; font-weight:800; color:var(--ink); opacity:.6; white-space:nowrap;}
+  .week-row .tag svg{width:16px; height:16px; flex-shrink:0;}
 
   .lib-tabs{display:flex; gap:8px; flex-wrap:wrap; margin-bottom:26px;}
+
+  /* Members-only lock */
+  .lock-wrap{position:relative;}
+  .lock-wrap.locked .lib-grid{filter:blur(6px); pointer-events:none; user-select:none;}
+  .lock-panel{display:none;}
+  .lock-wrap.locked .lock-panel{
+    display:flex; flex-direction:column; align-items:center; text-align:center; gap:12px;
+    position:absolute; inset:0; margin:auto; height:fit-content; max-width:340px; padding:28px 26px;
+    background:var(--paper); border:2px solid var(--ink); border-radius:20px; z-index:5;
+    box-shadow:0 10px 0 rgba(44,74,102,.08);
+  }
+  .lock-panel .lockicon{font-size:26px;}
+  .lock-panel h3{font-size:20px;}
+  .lock-panel p{font-size:13.5px; opacity:.75; max-width:26ch;}
+  .lock-panel .btn-p{margin-top:4px;}
+  .acct-status{display:none; align-items:center; gap:10px; font-size:13.5px; font-weight:700;}
+  .acct-status.show{display:flex;}
+  .acct-status button{background:none; border:1px solid var(--ink); border-radius:100px; padding:5px 12px; font-size:12.5px; font-weight:700; cursor:pointer; color:var(--ink);}
+
+  .modal-bg{display:none; position:fixed; inset:0; background:rgba(44,74,102,.45); z-index:100; align-items:center; justify-content:center; padding:20px;}
+  .modal-bg.show{display:flex;}
+  .modal{background:var(--paper); border:2px solid var(--ink); border-radius:22px; padding:30px 28px; max-width:340px; width:100%;}
+  .modal h3{font-size:24px; margin-bottom:6px;}
+  .modal p.sw{font-size:13px; opacity:.7; margin-bottom:18px;}
+  .modal label{font-size:12.5px; font-weight:800; display:block; margin-bottom:5px;}
+  .modal input{width:100%; padding:11px 13px; border:2px solid var(--line); border-radius:12px; font-family:'Nunito'; font-size:14.5px; margin-bottom:14px; background:#fff; color:var(--ink);}
+  .modal .close{position:absolute; top:16px; right:20px; background:none; border:0; font-size:20px; cursor:pointer; color:var(--ink); opacity:.6;}
+  .modal-inner{position:relative;}
+  .modal .toggle-mode{text-align:center; font-size:13px; margin-top:14px; opacity:.75;}
+  .modal .toggle-mode a{color:var(--peach-d); font-weight:800; cursor:pointer;}
+  .modal .demo-note{font-size:11.5px; opacity:.55; text-align:center; margin-top:12px;}
   .lib-tab{border:2px solid var(--ink); padding:7px 16px; border-radius:100px; font-size:13.5px; font-weight:700; cursor:pointer; background:transparent; color:var(--ink);}
   .lib-tab.on{background:var(--ink); color:var(--cream);}
   .lib-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:18px;}
@@ -142,7 +178,14 @@
       <button data-target="shop">Shop</button>
       <button data-target="blog">Blog</button>
     </div>
-    <a href="#" class="join-btn" onclick="showSection('membership');return false;">Join $30/mo</a>
+    <a href="#" class="join-btn" onclick="showSection('membership');return false;">Join — $30/mo</a>
+    <button class="avatar-btn" id="avatarBtn" onclick="openModal('login')" aria-label="Sign in">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="1.8"><circle cx="12" cy="8" r="3.4"/><path d="M4.5 20c1.4-3.6 4.4-5.5 7.5-5.5s6.1 1.9 7.5 5.5"/></svg>
+    </button>
+    <div class="acct-status" id="acctStatus">
+      <span id="acctName">Hi, Member</span>
+      <button onclick="logOut()">Log out</button>
+    </div>
     <button class="hamburger" id="hamburgerBtn" aria-label="Menu"><span></span><span></span><span></span></button>
   </nav>
 </header>
@@ -155,7 +198,7 @@
         <h1>Sweat, stretch, and have fun doing it.</h1>
         <p class="sub">Kristi's live classes, home training sessions, and quick follow-alongs — all in one cozy corner of the internet, always here when you need them.</p>
         <div class="ctas">
-          <a href="#" class="btn-p" onclick="showSection('membership');return false;">Join the fam — $30/mo</a>
+          <a href="#" class="btn-p" onclick="showSection('membership');return false;">Join — $30/mo</a>
           <a href="#" class="btn-g" onclick="showSection('library');return false;">Peek at the library</a>
         </div>
       </div>
@@ -171,19 +214,19 @@
       <div class="stat"><div class="n">1</div><div class="l">very good dog on set</div></div>
     </div>
   </div>
-  <div class="sec wrap">
+  <div class="sec wrap week-section">
     <div class="sec-head">
       <h2>What's dropping this week</h2>
       <p>A little rhythm to look forward to, day by day.</p>
     </div>
     <div class="week-list">
-      <div class="week-row"><div class="num">1</div><div><div class="t">Monday — Full Body Live Class (replay)</div><div class="d">60 min, straight from Zoom to your library</div></div><div class="tag">Video</div></div>
-      <div class="week-row"><div class="num">2</div><div><div class="t">Tuesday — Home Training Session</div><div class="d">30 min, small-space friendly</div></div><div class="tag">Video</div></div>
-      <div class="week-row"><div class="num">3</div><div><div class="t">Wednesday — Quick Bite: Hips &amp; Low Back</div><div class="d">8 min, squeeze it in anywhere</div></div><div class="tag">Bite</div></div>
-      <div class="week-row"><div class="num">4</div><div><div class="t">Thursday — Live Class</div><div class="d">6:00 PM, come sweat with the group</div></div><div class="tag">Live</div></div>
-      <div class="week-row"><div class="num">5</div><div><div class="t">Friday — Quick Bite: Shoulders</div><div class="d">6 min, desk-day reset</div></div><div class="tag">Bite</div></div>
-      <div class="week-row"><div class="num">6</div><div><div class="t">Saturday — Weekend Strength Class</div><div class="d">60 min, grab your weights</div></div><div class="tag">Video</div></div>
-      <div class="week-row"><div class="num">7</div><div><div class="t">Sunday — Kristi's Notes (+ Yazhi cameo)</div><div class="d">A little read on this week's why</div></div><div class="tag">Blog</div></div>
+      <div class="week-row"><div class="num">M</div><div><div class="t">Monday — Full Body Live Class (replay)</div><div class="d">60 min, straight from Zoom to your library</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg>Video</div></div>
+      <div class="week-row"><div class="num">Tue</div><div><div class="t">Tuesday — Home Training Session</div><div class="d">30 min, small-space friendly</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg>Video</div></div>
+      <div class="week-row"><div class="num">W</div><div><div class="t">Wednesday — Quick Bite: Hips &amp; Low Back</div><div class="d">8 min, squeeze it in anywhere</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Bite</div></div>
+      <div class="week-row"><div class="num">Thu</div><div><div class="t">Thursday — Live Class</div><div class="d">6:00 PM, come sweat with the group</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M6 8a7 7 0 0 0 0 8M18 8a7 7 0 0 1 0 8"/></svg>Live</div></div>
+      <div class="week-row"><div class="num">F</div><div><div class="t">Friday — Quick Bite: Shoulders</div><div class="d">6 min, desk-day reset</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13 2 4 14h6l-1 8 9-12h-6l1-8z"/></svg>Bite</div></div>
+      <div class="week-row"><div class="num">Sat</div><div><div class="t">Saturday — Weekend Strength Class</div><div class="d">60 min, grab your weights</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2.5" y="6" width="13" height="12" rx="2"/><path d="M15.5 10.5l6-3.5v10l-6-3.5z"/></svg>Video</div></div>
+      <div class="week-row"><div class="num">Sun</div><div><div class="t">Sunday — Kristi's Notes (+ Yazhi cameo)</div><div class="d">A little read on this week's why</div></div><div class="tag"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5V6a2 2 0 0 1 2-2h11l3 3v12.5a1.5 1.5 0 0 1-1.5 1.5H5.5A1.5 1.5 0 0 1 4 19.5z"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>Blog</div></div>
     </div>
   </div>
 </section>
